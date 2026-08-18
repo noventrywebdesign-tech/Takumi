@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { company } from "@/lib/site-data";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { useReducedMotionSafe } from "@/lib/use-reduced-motion-safe";
 
 export default function Hero() {
   const [introDone, setIntroDone] = useState(false);
+  const reduceMotion = useReducedMotionSafe();
 
   useEffect(() => {
     const t = setTimeout(() => setIntroDone(true), 1150);
@@ -34,19 +37,32 @@ export default function Hero() {
         </motion.span>
       </motion.div>
 
-      {/* Background image */}
+      {/* Background: looping restaurant walkthrough, static poster under reduced motion */}
       <div className="absolute inset-0">
-        <motion.img
-          src="/images/food/hero-tempura-macro.jpg"
-          alt="Ramen mit knuspriger Gemüse-Tempura, Sojasprossen und Frühlingszwiebeln bei Takumi Dortmund"
-          fetchPriority="high"
-          loading="eager"
-          decoding="async"
-          initial={{ scale: 1.05 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 3.2, ease: [0.16, 1, 0.3, 1] }}
-          className="h-full w-full object-cover photo-cinematic"
-        />
+        {reduceMotion ? (
+          <Image
+            src="/images/food/hero-tempura-macro.jpg"
+            alt="Ramen mit knuspriger Gemüse-Tempura, Sojasprossen und Frühlingszwiebeln bei Takumi Dortmund"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover photo-cinematic"
+          />
+        ) : (
+          <motion.video
+            src="/video/hero-loop.mp4"
+            poster="/images/food/hero-tempura-macro.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            initial={{ scale: 1.05 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 3.2, ease: [0.16, 1, 0.3, 1] }}
+            className="h-full w-full object-cover photo-cinematic"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/55 to-ink-950/20" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-transparent to-transparent" />
         <div className="grain vignette absolute inset-0" />

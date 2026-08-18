@@ -217,7 +217,7 @@ export const gallery = [
   { src: "/images/food/gyoza-teriyaki-plate.jpg", alt: "Gyoza und Teriyaki-Hähnchen bei Takumi Dortmund" },
   { src: "/images/interior/sakura-interior.jpg", alt: "Der Sakura-Baum im Innenraum von Takumi Dortmund" },
   { src: "/images/food/karaage-closeup-2.jpg", alt: "Knuspriges Karaage bei Takumi Dortmund" },
-  { src: "/images/food/ramen-miso-hero.jpg", alt: "Miso Ramen mit Karaage, Garnelen und Ei" },
+  { src: "/images/interior/takumi-sign-wall.jpg", alt: "麺処匠 SAPPORO RAMEN -TAKUMI- DORTMUND Wandschild im Restaurant" },
   { src: "/images/food/ramen-vegetarian.jpg", alt: "Vegetarisches Tofu-Ramen" },
   { src: "/images/food/ramen-bowls-table.jpg", alt: "Zwei Schüsseln Ramen am Tisch" },
 ];

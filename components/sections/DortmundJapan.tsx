@@ -44,7 +44,7 @@ export default function DortmundJapan() {
           />
         </motion.div>
 
-        <div className="relative mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div className="relative mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
           <Reveal delay={0.1} className="relative aspect-[4/3] overflow-hidden rounded-sm">
             <motion.img
               style={{ y: ySmall }}
@@ -67,11 +67,26 @@ export default function DortmundJapan() {
               whileInView={{ scale: 1 }}
               viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
               transition={{ duration: 1.2, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+              src="/images/interior/lantern-hallway.jpg"
+              alt="Eingangsbereich von Takumi Dortmund mit japanischen Papierlampions und Shoji-Elementen"
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-[118%] w-full object-cover photo-cinematic"
+            />
+          </Reveal>
+
+          <Reveal delay={0.2} className="relative aspect-[4/3] overflow-hidden rounded-sm">
+            <motion.img
+              style={{ y: ySmall }}
+              initial={{ scale: 1.08 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+              transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               src="/images/interior/staircase-branding-wall.jpg"
               alt="Wandgestaltung mit Takumi-Dortmund-Branding an der Treppe im Restaurant"
               loading="lazy"
               decoding="async"
-              className="absolute inset-0 h-[118%] w-full object-cover object-[50%_30%] photo-cinematic"
+              className="absolute inset-0 h-[118%] w-full object-cover photo-cinematic"
             />
           </Reveal>
         </div>
