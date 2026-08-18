@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Ink: warme Tiefe statt reinem Schwarz — gebrannte Nori, Sojasauce ── */
+  --color-ink-950: #100d09;
+  --color-ink-900: #16130e;
+  --color-ink-800: #201a13;
+  --color-ink-700: #2c2419;
+  --color-ink-600: #3c3122;
+
+  /* ── Paper: warmes Reispapier-Weiß, keine sterile Fläche ── */
+  --color-paper-50: #faf6ec;
+  --color-paper-100: #f3ecdc;
+  --color-paper-200: #e8dcc2;
+
+  /* ── Takumi-Gelb: aus dem echten Ladenschild abgeleitet — Markenfarbe ── */
+  --color-yellow-300: #f6d777;
+  --color-yellow-400: #eec04a;
+  --color-yellow-500: #e3aa22;
+  --color-yellow-600: #b9860f;
+  --color-yellow-900: #4a3609;
+
+  /* ── Takumi-Rot: aus dem Original-Stempel-Logo (麺処匠) — sparsamer Akzent ── */
+  --color-red-500: #a4272c;
+  --color-red-600: #841e22;
+  --color-red-700: #641619;
+
+  /* ── Holz: Tischplatten, Warmton-Neutral ── */
+  --color-wood-300: #cba372;
+  --color-wood-500: #a97c4a;
+  --color-wood-700: #7a5732;
+
+  --font-display: var(--font-shoulders), "Arial Narrow", sans-serif;
+  --font-body: var(--font-hanken), sans-serif;
+  --font-jp: var(--font-yuji), serif;
+
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-sublime: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --animate-steam: steam 7s ease-in-out infinite;
+  --animate-drift-slow: drift-slow 34s ease-in-out infinite alternate;
+  --animate-marquee: marquee 32s linear infinite;
+}
+
+@keyframes steam {
+  0%,
+  100% {
+    transform: translateY(0) scaleY(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(-14px) scaleY(1.08);
+    opacity: 0.55;
+  }
+}
+
+@keyframes drift-slow {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-2.5%, 2%) scale(1.05);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+html {
+  background: var(--color-ink-950);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper-50);
+  color: var(--color-ink-900);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-yellow-500);
+  color: var(--color-ink-950);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-yellow-500);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Eyebrow-Label: schmale Versalien mit Trennlinie ── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65em;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 1.9em;
+  height: 2px;
+  background: currentColor;
+}
+
+/* ── Feine Linie in Takumi-Gelb ── */
+.rule-yellow {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-yellow-500), transparent);
+}
+
+/* ── Bildstimmung: satt, warm, kinoreif statt Handyfoto-flach ── */
+.photo-cinematic {
+  filter: saturate(1.12) contrast(1.12) brightness(0.97);
+}
+.photo-deep {
+  filter: saturate(1.08) contrast(1.18) brightness(0.7);
+}
+
+/* ── Filmkorn — subtil, für Hero & Kampagnen-Flächen ── */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Vignette: kinoreife Randabdunklung ── */
+.vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 20vw rgba(16, 13, 9, 0.55);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Stempel-Rahmen: für den 麺処匠-Kanji-Akzent ── */
+.stamp-ring {
+  border: 1.5px solid currentColor;
+  border-radius: 9999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
