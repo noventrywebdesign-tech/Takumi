@@ -39,7 +39,7 @@
 
   --animate-steam: steam 7s ease-in-out infinite;
   --animate-drift-slow: drift-slow 34s ease-in-out infinite alternate;
-  --animate-marquee: marquee 32s linear infinite;
+  --animate-marquee: marquee 113s linear infinite;
 }
 
 @keyframes steam {

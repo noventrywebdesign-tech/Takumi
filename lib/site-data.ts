@@ -31,7 +31,9 @@ export const company = {
     registerNumberPlaceholder: "REGISTERNUMMER",
   },
   mapsEmbedSrc: "https://www.google.com/maps?q=Br%C3%BCckstra%C3%9Fe+32,+44135+Dortmund&output=embed",
-  mapsLink: "https://www.google.com/maps/search/?api=1&query=Br%C3%BCckstra%C3%9Fe+32+44135+Dortmund",
+  // Query includes the business name, not just the address — an address-only query resolves to a
+  // bare map pin with no business card (and no reviews), not the actual Takumi listing.
+  mapsLink: "https://www.google.com/maps/search/?api=1&query=Takumi+Dortmund+Br%C3%BCckstra%C3%9Fe+32+44135+Dortmund",
 } as const;
 
 export const hours = [
@@ -182,18 +184,28 @@ export const menu: MenuCategory[] = [
 ];
 
 /**
- * Real Google reviews for Takumi Dortmund (Brückstraße 32, 44135 Dortmund).
+ * Real guest reviews for Takumi Dortmund (Brückstraße 32, 44135 Dortmund). The aggregate
+ * trust badge (score/count) is Google-only. Individual cards are honestly mixed-source —
+ * each carries its own real platform, never relabeled as Google when it isn't.
  *
- * Rating cross-verified via two independent Google-Places aggregators on 19.08.2026:
- * wanderlog.com/place/details/9893520/takumi-dortmund and rankeat.fr/restaurants/takumi-dortmund-dortmund —
- * both show 4.7/5 tied to this exact address (rankeat explicitly cites "Google Maps" as
- * its source); review counts differ slightly by snapshot date (1.353 vs 1.391), so the
- * count below is deliberately conservative rather than a single stale exact figure.
+ * Google aggregate rating cross-verified via two independent Google-Places aggregators on
+ * 19.08.2026: wanderlog.com/place/details/9893520/takumi-dortmund and
+ * rankeat.fr/restaurants/takumi-dortmund-dortmund — both show 4.7/5 tied to this exact
+ * address (rankeat explicitly cites "Google Maps" as its source); review counts differ
+ * slightly by snapshot date (1.353 vs 1.391), so the count below is deliberately
+ * conservative rather than a single stale exact figure.
  *
- * Individual quotes are taken verbatim (incl. original language and typos) from the same
- * Wanderlog listing — nothing paraphrased or invented. One real review (Eoghan D., 2★,
- * 11.12.2025) is not featured here; this is a curated trust band, not a full review dump,
- * same as any restaurant showcasing a selection of its own real reviews.
+ * Individual Google quotes are verbatim (incl. original English and typos) from the same
+ * Wanderlog listing — nothing paraphrased or invented. One real Google review (Eoghan D.,
+ * 2★, 11.12.2025) is not featured; this is a curated trust band, not a full review dump.
+ *
+ * The three German-language reviews are real Tripadvisor reviews (not Google — Google's own
+ * review text could not be scraped directly; JS-rendered + consent-walled), verbatim from
+ * tripadvisor.de/Restaurant_Review-g187372-d27807338-Reviews-Takumi_Dortmund-Dortmund_North_Rhine_Westphalia.html
+ * on 25.08.2026, minor whitespace-around-punctuation artifacts from text extraction cleaned
+ * up (no words changed). Two more real Tripadvisor reviews exist (MACS L., Henning H., both
+ * 3★, raising authenticity questions about kitchen staff) and are deliberately not featured
+ * here for the same curation reason as the excluded Google 2★ review.
  */
 export const googleReviewStats = {
   rating: 4.7,
@@ -201,31 +213,56 @@ export const googleReviewStats = {
   countLabel: "1.300+",
 };
 
-export type GoogleReview = { name: string; isoDate: string; rating: number; text: string };
+export type GuestReview = { name: string; isoDate: string; rating: number; text: string; source: "Google" | "Tripadvisor" };
 
-export const googleReviews: GoogleReview[] = [
+export const guestReviews: GuestReview[] = [
+  {
+    name: "Ilaudj",
+    isoDate: "2025-05-04",
+    rating: 4,
+    source: "Tripadvisor",
+    text: "Ich hatte eine wirklich schöne Erfahrung hier während eines späten Abendessens. Der Ramen war lecker, fleischzart, viel Gemüse im Ramen und die Nudeln waren nicht sehr weich, was ich genossen habe. Ich bin gerade vor einem Monat aus Japan zurückgekommen und ich kann sagen, dass dieser Ramen auch für Japan anständig war.",
+  },
   {
     name: "Esi",
     isoDate: "2025-10-13",
     rating: 5,
+    source: "Google",
     text: "I didn't expect to be eating the ramen I've seen in Naruto while listening to the Evangelion anime opening, but that's exactly why it deserves 5 stars. The food was amazing too.",
+  },
+  {
+    name: "Lavaza V.",
+    isoDate: "2026-05-14",
+    rating: 4,
+    source: "Tripadvisor",
+    text: "Sehr leckere vegane Ramen und perfekt gekühltes Bier. Netter Service. Aber wir mussten etwas länger warten bis wir bestellen konnten.",
   },
   {
     name: "Laura S.",
     isoDate: "2025-05-31",
     rating: 5,
+    source: "Google",
     text: "Great place to have a good ramen The decoration is amazing, lovely and quiet (for the street where it is located) The service was really friendly and the food was super tasty Definitely recommend it",
+  },
+  {
+    name: "Alfi",
+    isoDate: "2026-03-17",
+    rating: 4,
+    source: "Tripadvisor",
+    text: "Ziemlich eng aber süß eingerichtet. Essen kam schnell. Die Ramen war lecker. Es hat lediglich ein bisschen Würze gefehlt. Preis war in Ordnung.",
   },
   {
     name: "Hùng L.",
     isoDate: "2025-06-12",
     rating: 4,
+    source: "Google",
     text: "I quite enjoy Japanese ramen, and I tried a few dishes here. […] Luckily, the waitstaff were still friendly and welcoming.",
   },
   {
     name: "Nurya A.",
     isoDate: "2025-09-17",
     rating: 3,
+    source: "Google",
     text: "Good atmosphere good service The rameon was good but we ordered a vegetarische one because other ones included pork soup.. it was delicious but for me it what a little bit undersalted 😅",
   },
 ];

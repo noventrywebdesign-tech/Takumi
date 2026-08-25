@@ -4,7 +4,7 @@ import { useState } from "react";
 import Reveal from "@/components/ui/Reveal";
 import StarRating from "@/components/ui/StarRating";
 import MagneticButton from "@/components/ui/MagneticButton";
-import { company, googleReviews, googleReviewStats, type GoogleReview } from "@/lib/site-data";
+import { company, guestReviews, googleReviewStats, type GuestReview } from "@/lib/site-data";
 
 function GoogleG({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -28,7 +28,7 @@ function relativeMonths(isoDate: string) {
   return `vor ${years} ${years === 1 ? "Jahr" : "Jahren"}`;
 }
 
-function ReviewCard({ review }: { review: GoogleReview }) {
+function ReviewCard({ review }: { review: GuestReview }) {
   const initial = review.name.trim().charAt(0).toUpperCase();
   return (
     <div className="flex h-full w-[80vw] shrink-0 flex-col justify-between gap-5 rounded-sm border border-paper-50/10 bg-ink-900 p-6 sm:w-[320px] lg:w-[340px]">
@@ -45,9 +45,10 @@ function ReviewCard({ review }: { review: GoogleReview }) {
         <p className="mt-4 text-[0.95rem] leading-relaxed text-paper-50/75">&ldquo;{review.text}&rdquo;</p>
       </div>
 
+      {/* Honest per-review source — never shown as Google unless it genuinely is. */}
       <div className="flex items-center gap-2 text-xs text-paper-50/40">
-        <GoogleG className="h-3.5 w-3.5" />
-        <span>Google</span>
+        {review.source === "Google" && <GoogleG className="h-3.5 w-3.5" />}
+        <span>{review.source}</span>
         <span aria-hidden>·</span>
         <span>{relativeMonths(review.isoDate)}</span>
       </div>
@@ -55,8 +56,16 @@ function ReviewCard({ review }: { review: GoogleReview }) {
   );
 }
 
+// With 7 unique reviews, one lap of the strip is still narrower than very wide desktop
+// viewports (1920px+) — repeating the set 2x per half (4x total) keeps the strip comfortably
+// wider than any realistic viewport, so the track never runs out of cards mid-cycle and
+// exposes the bare section background. The animation duration in globals.css is scaled to
+// match this width, so the per-card pace stays the same regardless of review count.
+const REPEATS_PER_HALF = 2;
+
 export default function GoogleReviews() {
-  const loop = [...googleReviews, ...googleReviews];
+  const half = Array.from({ length: REPEATS_PER_HALF }, () => guestReviews).flat();
+  const loop = [...half, ...half];
   const [paused, setPaused] = useState(false);
 
   return (
@@ -84,6 +93,14 @@ export default function GoogleReviews() {
           <MagneticButton href={company.mapsLink} target="_blank" variant="outline" className="mt-2">
             Alle Bewertungen auf Google ansehen
           </MagneticButton>
+          <a
+            href={company.tripadvisor}
+            target="_blank"
+            rel="noreferrer"
+            className="text-xs uppercase tracking-[0.12em] text-ink-400 underline-offset-4 hover:text-yellow-600 hover:underline"
+          >
+            Weitere Bewertungen auf Tripadvisor
+          </a>
         </Reveal>
       </div>
 
