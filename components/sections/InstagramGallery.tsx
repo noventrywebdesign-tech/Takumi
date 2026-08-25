@@ -25,7 +25,7 @@ export default function InstagramGallery() {
   return (
     <section id="instagram" className="relative bg-paper-100 py-24 sm:py-32 lg:py-40">
       <div className="mx-auto max-w-[92rem] px-6 lg:px-12">
-        <Reveal className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
+        <Reveal className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
           <div>
             <span className="eyebrow text-yellow-600">
               <span className="font-jp text-base">写真</span> Aus Dortmund, mit Ramen
