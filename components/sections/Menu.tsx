@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { menu } from "@/lib/site-data";
 import Reveal from "@/components/ui/Reveal";
 
+const tagColor = { vegan: "text-yellow-600", veggie: "text-ink-400", hausgemacht: "text-red-600" } as const;
+
 export default function Menu() {
-  const [activeId, setActiveId] = useState(menu[1].id);
+  const [activeId, setActiveId] = useState("ramen-schwein");
   const category = menu.find((c) => c.id === activeId) ?? menu[0];
 
   return (
@@ -61,25 +63,28 @@ export default function Menu() {
               </div>
               <ul className="flex flex-col divide-y divide-ink-900/8">
                 {category.items.map((item) => (
-                  <li key={item.num} className="flex items-baseline gap-3 py-4 sm:gap-4">
-                    <span className="tnum w-8 shrink-0 text-xs font-semibold text-ink-400 sm:w-10">
-                      {item.num}
-                    </span>
-                    <span className="text-[1.05rem] text-ink-800">
-                      {item.name}
-                      {item.tag && (
-                        <span
-                          className={`ml-2 align-middle text-[0.62rem] font-bold uppercase tracking-[0.1em] ${
-                            item.tag === "vegan" ? "text-yellow-600" : "text-ink-400"
-                          }`}
-                        >
-                          [{item.tag === "vegan" ? "vegan" : "veggie"}]
-                        </span>
-                      )}
-                    </span>
-                    <span className="tnum flex-1 border-b border-dotted border-ink-900/15 translate-y-[-0.3em]" aria-hidden />
-                    <span className="tnum shrink-0 text-[1.05rem] font-semibold text-ink-900">{item.price}</span>
-                  </li>
+                  <Fragment key={item.num}>
+                    {item.sectionBreak && (
+                      <li className="pt-8 pb-1 first:pt-0" aria-hidden={false}>
+                        <span className="eyebrow text-ink-400">{item.sectionBreak}</span>
+                      </li>
+                    )}
+                    <li className="flex items-end gap-3 py-4 sm:gap-4">
+                      <span className="tnum w-8 shrink-0 pb-[0.15em] text-xs font-semibold text-ink-400 sm:w-10">
+                        {item.num}
+                      </span>
+                      <span className="min-w-0 text-[1.05rem] leading-snug text-ink-800">
+                        {item.name}
+                        {item.tag && (
+                          <span className={`ml-2 align-middle text-[0.62rem] font-bold uppercase tracking-[0.1em] ${tagColor[item.tag]}`}>
+                            [{item.tag}]
+                          </span>
+                        )}
+                      </span>
+                      <span className="tnum mb-[0.4em] h-0 min-w-[1.5rem] flex-1 border-b border-dotted border-ink-900/15" aria-hidden />
+                      <span className="tnum shrink-0 pb-[0.15em] text-[1.05rem] font-semibold text-ink-900">{item.price}</span>
+                    </li>
+                  </Fragment>
                 ))}
               </ul>
             </motion.div>
@@ -89,8 +94,10 @@ export default function Menu() {
         <Reveal delay={0.15} className="mt-14 flex flex-col items-center gap-2 text-center text-sm text-ink-500">
           <p>
             <span className="font-bold text-yellow-600">[vegan]</span> vegan ·{" "}
-            <span className="font-bold text-ink-400">[veggie]</span> vegetarisch — alle Preise inkl. MwSt.
+            <span className="font-bold text-ink-400">[veggie]</span> vegetarisch ·{" "}
+            <span className="font-bold text-red-600">[hausgemacht]</span> hausgemacht — alle Preise inkl. MwSt.
           </p>
+          <p className="text-xs text-ink-400">Große Portion Nudeln +2,00 € · mehr Sojasprossen immer kostenlos</p>
         </Reveal>
       </div>
     </section>

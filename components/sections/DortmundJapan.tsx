@@ -52,8 +52,8 @@ export default function DortmundJapan() {
               whileInView={{ scale: 1 }}
               viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              src="/images/interior/sakura-alt-angle.jpg"
-              alt="Der Kirschblütenbaum im Innenraum von Takumi Dortmund, Brückstraße"
+              src="/images/interior/sakura-fenster.jpg"
+              alt="Der Kirschblütenbaum am Fenster von Takumi Dortmund, Brückstraße"
               loading="lazy"
               decoding="async"
               className="absolute inset-0 h-[118%] w-full object-cover photo-cinematic"

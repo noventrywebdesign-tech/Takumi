@@ -47,6 +47,7 @@ export const navigation = [
   { href: "#menu", label: "Menü" },
   { href: "#story", label: "Story" },
   { href: "#dortmund", label: "Dortmund" },
+  { href: "#fensterplaetze", label: "Fensterplätze" },
   { href: "#instagram", label: "Instagram" },
   { href: "#anfahrt", label: "Anfahrt" },
 ];
@@ -106,25 +107,40 @@ export const signatureRamen = [
   },
 ];
 
-export type MenuItem = { num: number; name: string; price: string; tag?: "vegan" | "veggie"; note?: string };
+export type MenuItem = {
+  num: number;
+  name: string;
+  price: string;
+  tag?: "vegan" | "veggie" | "hausgemacht";
+  /** Renders a small inline divider label right before this item — used to split a long tab into sub-groups. */
+  sectionBreak?: string;
+};
 export type MenuCategory = { id: string; label: string; jp: string; items: MenuItem[] };
 
-/** Full menu, verified item-for-item (numbers, names, prices) against https://takumi-dortmund.menueat.net/menu */
+/**
+ * Full menu, transcribed item-for-item (numbers, names, prices) from the current physical
+ * Takumi Dortmund menu card — supersedes any earlier menu source in this project. Dietary
+ * tags are only applied where the card itself marks them (a "NO MEAT" icon, or "Veggie" /
+ * "Vegi" / "Vegan" in the dish's own printed name) — never inferred from ingredients.
+ */
 export const menu: MenuCategory[] = [
   {
     id: "vorspeisen",
     label: "Vorspeisen",
     jp: "前菜",
     items: [
-      { num: 59, name: "Veggie Gyoza", price: "6,80 €", tag: "veggie" },
-      { num: 60, name: "Gyoza", price: "6,50 €" },
-      { num: 61, name: "Karaage (7 Stück)", price: "7,80 €" },
-      { num: 62, name: "Karaage (10 Stück)", price: "13,50 €" },
-      { num: 63, name: "Takoyaki", price: "6,50 €" },
-      { num: 64, name: "Toriteri", price: "7,50 €" },
-      { num: 640, name: "Toriteri Full", price: "13,00 €" },
-      { num: 65, name: "Frittierte Jumbo Garnelen", price: "6,00 €" },
-      { num: 66, name: "Kimchi", price: "5,20 €", tag: "vegan" },
+      { num: 59, name: "Veggie Gyoza (6 Stück)", price: "5,80 €", tag: "veggie" },
+      { num: 60, name: "Gyoza (6 Stück)", price: "5,50 €" },
+      { num: 61, name: "Karaage (5 Stück)", price: "6,80 €" },
+      { num: 62, name: "Karaage (10 Stück)", price: "12,50 €" },
+      { num: 63, name: "Takoyaki (4 Stück)", price: "5,50 €" },
+      { num: 64, name: "Toriteri (Half)", price: "6,50 €" },
+      { num: 640, name: "Toriteri (Full)", price: "12,00 €" },
+      { num: 65, name: "Frittierte Jumbo Garnelen (2 Stück)", price: "5,00 €" },
+      { num: 66, name: "Kimchi (scharf)", price: "4,20 €" },
+      { num: 67, name: "Gekochte Sojabohnen", price: "4,20 €" },
+      { num: 68, name: "Gurken (leicht scharf)", price: "4,20 €" },
+      { num: 69, name: "Seetang-Salat", price: "4,20 €" },
     ],
   },
   {
@@ -132,19 +148,19 @@ export const menu: MenuCategory[] = [
     label: "Ramen mit Schwein",
     jp: "豚肉",
     items: [
-      { num: 1, name: "Shio Ramen", price: "13,80 €" },
-      { num: 2, name: "Shoyu Ramen", price: "13,80 €" },
-      { num: 3, name: "Miso Ramen", price: "14,80 €" },
-      { num: 4, name: "Shio Ramen mit Butter", price: "15,80 €" },
-      { num: 5, name: "Shoyu Ramen mit Butter", price: "15,80 €" },
-      { num: 6, name: "Miso Ramen mit Butter", price: "16,80 €" },
-      { num: 7, name: "Traditionelle Tokyo Shoyu Ramen", price: "16,80 €" },
-      { num: 8, name: "Oro-Chon Ramen", price: "15,80 €" },
-      { num: 10, name: "Ebi Tako Tan Tan Men", price: "20,80 €" },
-      { num: 11, name: "Karaage Tan Men", price: "19,80 €" },
-      { num: 12, name: "Tan Tan Men", price: "17,80 €" },
-      { num: 20, name: "Special Ramen Shoyu", price: "20,80 €" },
-      { num: 21, name: "Special Ramen Miso", price: "21,80 €" },
+      { num: 1, name: "Shio Ramen", price: "11,80 €" },
+      { num: 2, name: "Shoyu Ramen", price: "11,80 €" },
+      { num: 3, name: "Miso Ramen", price: "12,80 €" },
+      { num: 4, name: "Shio Ramen mit Butter, Mais & Seetang", price: "13,80 €" },
+      { num: 5, name: "Shoyu Ramen mit Butter, Mais & Seetang", price: "13,80 €" },
+      { num: 6, name: "Miso Ramen mit Butter, Mais & Seetang", price: "14,80 €" },
+      { num: 7, name: "Traditionelle Tokyo Shoyu Ramen", price: "14,80 €" },
+      { num: 8, name: "Oro-Chon Ramen (scharfe Miso Ramen mit gebratenem Schweinefleisch)", price: "13,80 €" },
+      { num: 10, name: "Ebi Tako Tan Tan Men (mit Garnelen & Takoyaki)", price: "18,80 €" },
+      { num: 11, name: "Karaage Tan Tan Men", price: "17,80 €" },
+      { num: 12, name: "Tan Tan Men", price: "15,80 €" },
+      { num: 20, name: "Spezielle Ramen Shoyu (Takumi's Special)", price: "15,80 €" },
+      { num: 21, name: "Spezielle Ramen Miso (Takumi's Special)", price: "16,80 €" },
     ],
   },
   {
@@ -152,11 +168,15 @@ export const menu: MenuCategory[] = [
     label: "Ramen ohne Schwein",
     jp: "野菜",
     items: [
-      { num: 9, name: "Surf and Turf Takumi Style Spicy Miso Ramen", price: "19,80 €" },
-      { num: 13, name: "Gyoza und Karaage Miso Ramen", price: "19,80 €" },
-      { num: 14, name: "Karaage Miso Ramen", price: "17,80 €" },
-      { num: 15, name: "Teriyaki Miso Ramen", price: "17,80 €" },
-      { num: 22, name: "Special Ramen Spicy Curry", price: "21,80 €" },
+      { num: 9, name: "Surf & Turf Takumi Style (scharfe Miso Ramen mit Hähnchen, Garnelen & weichem Ei)", price: "17,80 €" },
+      { num: 13, name: "Gyoza & Karaage Miso Ramen (2 Hähnchenstückchen & 3 Gyoza)", price: "17,80 €" },
+      { num: 14, name: "Karaage Miso Ramen", price: "15,80 €" },
+      { num: 15, name: "Teriyaki Miso Ramen", price: "15,80 €" },
+      { num: 16, name: "Vegi Miso Ramen (mit Gemüse-Tempura & Tofu)", price: "17,80 €", tag: "veggie" },
+      { num: 17, name: "Vegi Miso Ramen (mit Gemüse-Tempura)", price: "16,80 €", tag: "veggie" },
+      { num: 18, name: "Vegi Miso Ramen", price: "14,80 €", tag: "veggie" },
+      { num: 19, name: "Spezial Vegan Creamy Potage Ramen", price: "17,80 €", tag: "vegan" },
+      { num: 22, name: "Spezielle Ramen Spicy Curry (Signature Ramen)", price: "18,80 €" },
     ],
   },
   {
@@ -164,21 +184,67 @@ export const menu: MenuCategory[] = [
     label: "Don",
     jp: "丼",
     items: [
-      { num: 70, name: "Buta Karubi Don", price: "8,80 €" },
-      { num: 71, name: "Karaage Don", price: "8,80 €" },
-      { num: 72, name: "Gyoza Karaage Don", price: "8,80 €" },
-      { num: 73, name: "Teriyaki Don", price: "8,50 €" },
-      { num: 74, name: "Veggie Kakiage Don", price: "8,50 €", tag: "veggie" },
-      { num: 75, name: "Vegan Tofu und Gyoza Don", price: "8,80 €", tag: "vegan" },
+      { num: 70, name: "Buta Karubi Don", price: "7,80 €" },
+      { num: 71, name: "Karaage Don (mit Mayo)", price: "7,80 €" },
+      { num: 72, name: "Gyoza Karaage Don", price: "7,80 €" },
+      { num: 73, name: "Teriyaki Don (mit Mayo)", price: "7,50 €" },
+      { num: 74, name: "Veggie Kakiage Don", price: "7,50 €", tag: "veggie" },
+      { num: 75, name: "Vegan Tofu & Gyoza Don", price: "7,80 €", tag: "vegan" },
+      { num: 76, name: "Gyoza & Karaage Teishoku (6 Gyoza, 5 Karaage, Reis & Misosuppe)", price: "14,80 €" },
+    ],
+  },
+  {
+    id: "beilagen",
+    label: "Beilagen",
+    jp: "トッピング",
+    items: [
+      { num: 30, name: "Gekochtes Schweinefleisch", price: "3,00 €" },
+      { num: 31, name: "Seetang (Wakame)", price: "1,50 €" },
+      { num: 32, name: "Nori-Blätter", price: "1,50 €" },
+      { num: 33, name: "Butter", price: "1,50 €" },
+      { num: 34, name: "Mais", price: "1,50 €" },
+      { num: 35, name: "Weiches Ei", price: "1,60 €" },
+      { num: 36, name: "Gekochtes Gemüse", price: "1,50 €" },
+      { num: 37, name: "Bambussprossen (Menma)", price: "2,00 €" },
+      { num: 38, name: "Gemüse Tempura (Kakiage)", price: "2,80 €" },
+      { num: 39, name: "Frittierte Takumi-Hähnchenstückchen", price: "4,50 €" },
+      { num: 40, name: "Naruto-Fischcake", price: "2,50 €" },
+      { num: 41, name: "Lauchzwiebeln", price: "2,00 €" },
+      { num: 42, name: "Zuckerschoten", price: "1,00 €" },
+      { num: 43, name: "Gegrillte Garnelen", price: "5,00 €" },
+      { num: 44, name: "Frittierte Jumbo-Garnelen", price: "5,00 €" },
+      { num: 45, name: "Frittierte Tofu", price: "2,20 €" },
+      { num: 46, name: "Gemüse-Mix", price: "2,80 €" },
     ],
   },
   {
     id: "getraenke-dessert",
     label: "Getränke & Dessert",
-    jp: "甘味",
+    jp: "飲物・甘味",
     items: [
-      { num: 94, name: "Yuzuka", price: "4,00 €" },
-      { num: 78, name: "Yuzu Sherbet", price: "4,30 €" },
+      { num: 77, name: "Grüntee-Eis", price: "3,50 €" },
+      { num: 78, name: "Yuzu-Sherbet", price: "3,80 €" },
+      { num: 79, name: "Sesam-Eis", price: "3,50 €" },
+      { num: 80, name: "Kirin Bier vom Fass (0,3L)", price: "4,20 €", sectionBreak: "Getränke" },
+      { num: 81, name: "Kirin Bier vom Fass (0,5L)", price: "6,20 €" },
+      { num: 82, name: "Warmer Grüner Tee", price: "2,50 €" },
+      { num: 83, name: "Wasser ohne Kohlensäure (0,25L)", price: "2,50 €" },
+      { num: 84, name: "Wasser ohne Kohlensäure (0,70L)", price: "5,80 €" },
+      { num: 85, name: "Apfelsaft (0,25L)", price: "3,00 €" },
+      { num: 86, name: "Kirin Free 0,0% (0,33L)", price: "3,80 €" },
+      { num: 87, name: "Cola (0,33L)", price: "3,20 €" },
+      { num: 88, name: "Wasser mit Kohlensäure (0,25L)", price: "2,50 €" },
+      { num: 89, name: "Wasser mit Kohlensäure (0,70L)", price: "5,80 €" },
+      { num: 90, name: "Apfelschorle (0,3L)", price: "3,20 €" },
+      { num: 91, name: "One Cup Sake, warm/kalt (0,1L)", price: "5,40 €" },
+      { num: 92, name: "One Cup Sake, warm/kalt (0,2L)", price: "8,50 €" },
+      { num: 93, name: "Cola Zero (0,33L)", price: "3,20 €" },
+      { num: 94, name: "Yuzuka (0,33L)", price: "4,00 €" },
+      { num: 95, name: "Ramune – Japanische Limonade (0,2L)", price: "4,20 €" },
+      { num: 96, name: "Rotwein (Glas)", price: "5,80 €" },
+      { num: 97, name: "Weißwein (Glas)", price: "5,80 €" },
+      { num: 98, name: "Hausgemachter Eistee", price: "4,50 €", tag: "hausgemacht" },
+      { num: 99, name: "Reis", price: "2,50 €" },
     ],
   },
 ];

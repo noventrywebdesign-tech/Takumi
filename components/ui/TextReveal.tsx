@@ -28,7 +28,7 @@ export default function TextReveal({ text, as = "span", className, delay = 0, on
     <Tag className={className}>
       {words.map((word, i) => (
         <Fragment key={i}>
-          <span className="inline-block overflow-hidden align-top pb-[0.12em]">
+          <span className="inline-block overflow-hidden align-top pt-[0.12em] pb-[0.12em]">
             <motion.span
               className="inline-block"
               initial={{ y: "110%" }}

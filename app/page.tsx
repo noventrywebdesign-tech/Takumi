@@ -4,6 +4,7 @@ import BowlIsHero from "@/components/sections/BowlIsHero";
 import NoRamenNoLife from "@/components/sections/NoRamenNoLife";
 import Menu from "@/components/sections/Menu";
 import DortmundJapan from "@/components/sections/DortmundJapan";
+import Fensterplaetze from "@/components/sections/Fensterplaetze";
 import Itadakimasu from "@/components/sections/Itadakimasu";
 import InstagramGallery from "@/components/sections/InstagramGallery";
 import GoogleReviews from "@/components/sections/GoogleReviews";
@@ -19,6 +20,7 @@ export default function Home() {
       <NoRamenNoLife />
       <Menu />
       <DortmundJapan />
+      <Fensterplaetze />
       <Itadakimasu />
       <InstagramGallery />
       <GoogleReviews />
