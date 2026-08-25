@@ -12,11 +12,11 @@ export default function Impressum() {
       <span className="eyebrow text-yellow-600">Rechtliches</span>
       <h1 className="mt-4 font-display text-4xl font-bold uppercase text-ink-900 sm:text-5xl">Impressum</h1>
 
-      <div className="mt-14 flex flex-col gap-10 text-[1.02rem] leading-relaxed text-ink-700">
+      <div className="mt-16 flex flex-col gap-12 text-[1.02rem] leading-relaxed text-ink-700 sm:gap-14">
         <section>
-          <h2 className="eyebrow mb-4 text-ink-400">Angaben gemäß § 5 TMG</h2>
+          <h2 className="eyebrow mb-4 text-ink-400">Angaben gemäß § 5 DDG</h2>
           <address className="not-italic">
-            <em className="text-ink-400">[{company.legal.entityPlaceholder} — Betreiberfirma]</em>
+            <em className="text-ink-400">[{company.legal.entityNamePlaceholder}]</em>
             <br />
             {company.address.street}
             <br />
@@ -27,69 +27,39 @@ export default function Impressum() {
         </section>
 
         <section>
+          <h2 className="eyebrow mb-4 text-ink-400">Vertreten durch</h2>
+          <p>
+            <em className="text-ink-400">[{company.legal.representativePlaceholder}]</em>
+          </p>
+        </section>
+
+        <section>
           <h2 className="eyebrow mb-4 text-ink-400">Kontakt</h2>
           <p>
             Telefon:{" "}
             <a href={`tel:${company.phoneHref}`} className="text-yellow-600 hover:text-yellow-700">
               {company.phone}
             </a>
+            <br />
+            E-Mail: <em className="text-ink-400">[{company.legal.emailPlaceholder}]</em>
           </p>
         </section>
 
         <section>
           <h2 className="eyebrow mb-4 text-ink-400">Umsatzsteuer-Identifikationsnummer</h2>
           <p>
-            Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:{" "}
+            Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:
+            <br />
             <em className="text-ink-400">[{company.legal.ustIdPlaceholder}]</em>
           </p>
         </section>
 
         <section>
-          <h2 className="eyebrow mb-4 text-ink-400">Handelsregister</h2>
+          <h2 className="eyebrow mb-4 text-ink-400">Registerangaben</h2>
           <p>
-            Registereintrag: <em className="text-ink-400">[{company.legal.registerPlaceholder}]</em>
-          </p>
-        </section>
-
-        <section>
-          <h2 className="eyebrow mb-4 text-ink-400">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
-          <p>
-            {company.legal.responsibleForContent}
+            Registergericht: <em className="text-ink-400">[{company.legal.registerCourtPlaceholder}]</em>
             <br />
-            {company.address.street}
-            <br />
-            {company.address.zipCity}
-          </p>
-        </section>
-
-        <section>
-          <h2 className="eyebrow mb-4 text-ink-400">Haftung für Inhalte</h2>
-          <p className="text-ink-500">
-            Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach
-            den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter
-            jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen
-            oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Bei
-            Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend
-            entfernen.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="eyebrow mb-4 text-ink-400">Haftung für Links</h2>
-          <p className="text-ink-500">
-            Unser Angebot enthält Links zu externen Webseiten Dritter (u. a. Lieferplattformen, Google
-            Maps, Instagram), auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese
-            fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets
-            der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="eyebrow mb-4 text-ink-400">Urheberrecht</h2>
-          <p className="text-ink-500">
-            Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem
-            deutschen Urheberrecht. Abbildungen des Restaurants und der Speisen sind urheberrechtlich
-            geschützt.
+            Registernummer: <em className="text-ink-400">[{company.legal.registerNumberPlaceholder}]</em>
           </p>
         </section>
       </div>

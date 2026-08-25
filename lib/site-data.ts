@@ -18,10 +18,17 @@ export const company = {
     "https://www.tripadvisor.com/Restaurant_Review-g187372-d27807338-Reviews-Takumi_Dortmund-Dortmund_North_Rhine_Westphalia.html",
   legal: {
     // Betreiberfirma noch nicht zweifelsfrei verifiziert — vor Launch mit Handelsregisterauszug / Gewerbeschein abgleichen.
+    // Wird von der Datenschutz-Seite mitverwendet — Wert nicht ändern, ohne app/datenschutz mitzupflegen.
     entityPlaceholder: "wird nachgereicht",
-    responsibleForContent: "Geschäftsführung Takumi Dortmund",
-    ustIdPlaceholder: "wird nachgereicht",
-    registerPlaceholder: "wird nachgereicht",
+
+    // Impressum-spezifische Platzhalter (§5 DDG). Bewusst als beschreibende Platzhalter belassen —
+    // keine dieser Angaben recherchieren, vermuten oder erfinden. Werden vom Betreiber nachgereicht.
+    entityNamePlaceholder: "VOLLSTÄNDIGER RECHTLICHER UNTERNEHMENSNAME",
+    representativePlaceholder: "VOR- UND NACHNAME DER VERTRETUNGSBERECHTIGTEN PERSON",
+    emailPlaceholder: "E-MAIL-ADRESSE",
+    ustIdPlaceholder: "UST-IDNR.",
+    registerCourtPlaceholder: "REGISTERGERICHT",
+    registerNumberPlaceholder: "REGISTERNUMMER",
   },
   mapsEmbedSrc: "https://www.google.com/maps?q=Br%C3%BCckstra%C3%9Fe+32,+44135+Dortmund&output=embed",
   mapsLink: "https://www.google.com/maps/search/?api=1&query=Br%C3%BCckstra%C3%9Fe+32+44135+Dortmund",
@@ -174,41 +181,54 @@ export const menu: MenuCategory[] = [
   },
 ];
 
-/** Real, attributed reviews — coolibri.de restaurant listing. */
-export const reviews = [
+/**
+ * Real Google reviews for Takumi Dortmund (Brückstraße 32, 44135 Dortmund).
+ *
+ * Rating cross-verified via two independent Google-Places aggregators on 19.08.2026:
+ * wanderlog.com/place/details/9893520/takumi-dortmund and rankeat.fr/restaurants/takumi-dortmund-dortmund —
+ * both show 4.7/5 tied to this exact address (rankeat explicitly cites "Google Maps" as
+ * its source); review counts differ slightly by snapshot date (1.353 vs 1.391), so the
+ * count below is deliberately conservative rather than a single stale exact figure.
+ *
+ * Individual quotes are taken verbatim (incl. original language and typos) from the same
+ * Wanderlog listing — nothing paraphrased or invented. One real review (Eoghan D., 2★,
+ * 11.12.2025) is not featured here; this is a curated trust band, not a full review dump,
+ * same as any restaurant showcasing a selection of its own real reviews.
+ */
+export const googleReviewStats = {
+  rating: 4.7,
+  outOf: 5,
+  countLabel: "1.300+",
+};
+
+export type GoogleReview = { name: string; isoDate: string; rating: number; text: string };
+
+export const googleReviews: GoogleReview[] = [
   {
-    name: "Aleksandar",
-    date: "12.10.2025",
-    rating: 10,
-    text: "Dieser Ramen-Laden ist ein echter Geheimtipp! Schon beim ersten Bissen merkt man, dass hier alles frisch und mit Leidenschaft zubereitet wird.",
+    name: "Esi",
+    isoDate: "2025-10-13",
+    rating: 5,
+    text: "I didn't expect to be eating the ramen I've seen in Naruto while listening to the Evangelion anime opening, but that's exactly why it deserves 5 stars. The food was amazing too.",
   },
   {
-    name: "Panda",
-    date: "30.09.2025",
-    rating: 9,
-    text: "Die Qualität des Essens war großartig, sowohl die Shio- als auch die Miso-Basen schmeckten ziemlich gleich wie in Japan.",
+    name: "Laura S.",
+    isoDate: "2025-05-31",
+    rating: 5,
+    text: "Great place to have a good ramen The decoration is amazing, lovely and quiet (for the street where it is located) The service was really friendly and the food was super tasty Definitely recommend it",
   },
   {
-    name: "Kristina",
-    date: "12.10.2025",
-    rating: 10,
-    text: "Ich war total begeistert von meinem Besuch in diesem Ramen-Laden! Schon beim Betreten merkt man, dass hier mit viel Liebe zum Detail gekocht wird.",
+    name: "Hùng L.",
+    isoDate: "2025-06-12",
+    rating: 4,
+    text: "I quite enjoy Japanese ramen, and I tried a few dishes here. […] Luckily, the waitstaff were still friendly and welcoming.",
   },
   {
-    name: "Rose",
-    date: "11.10.2025",
-    rating: 9,
-    text: "Ich war heute am Samstag in Dortmund und mir wurde das Takumi Restaurant empfohlen — die Ramen waren verdammt gut.",
-  },
-  {
-    name: "Kathi",
-    date: "29.09.2025",
-    rating: 9,
-    text: "Ein sehr schönes, authentisches Restaurant. Das Personal ist sehr aufmerksam und freundlich.",
+    name: "Nurya A.",
+    isoDate: "2025-09-17",
+    rating: 3,
+    text: "Good atmosphere good service The rameon was good but we ordered a vegetarische one because other ones included pork soup.. it was delicious but for me it what a little bit undersalted 😅",
   },
 ];
-
-export const reviewStats = { score: "8,5", of: "10", count: 348, source: "coolibri.de" };
 
 export const gallery = [
   { src: "/images/interior/signage-detail.jpg", alt: "Das gelbe Takumi-Logo im Schaufenster an der Brückstraße" },

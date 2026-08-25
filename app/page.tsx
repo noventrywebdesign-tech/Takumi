@@ -6,7 +6,7 @@ import Menu from "@/components/sections/Menu";
 import DortmundJapan from "@/components/sections/DortmundJapan";
 import Itadakimasu from "@/components/sections/Itadakimasu";
 import InstagramGallery from "@/components/sections/InstagramGallery";
-import Reviews from "@/components/sections/Reviews";
+import GoogleReviews from "@/components/sections/GoogleReviews";
 import RamenAtHome from "@/components/sections/RamenAtHome";
 import Anfahrt from "@/components/sections/Anfahrt";
 
@@ -21,7 +21,7 @@ export default function Home() {
       <DortmundJapan />
       <Itadakimasu />
       <InstagramGallery />
-      <Reviews />
+      <GoogleReviews />
       <RamenAtHome />
       <Anfahrt />
     </main>

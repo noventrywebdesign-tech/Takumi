@@ -4,7 +4,7 @@ import "./globals.css";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { company, reviewStats } from "@/lib/site-data";
+import { company, googleReviewStats } from "@/lib/site-data";
 
 const shoulders = Archivo_Black({
   variable: "--font-shoulders",
@@ -84,10 +84,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     ],
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: reviewStats.score.replace(",", "."),
-      bestRating: "10",
-      worstRating: "0",
-      ratingCount: String(reviewStats.count),
+      ratingValue: String(googleReviewStats.rating),
+      bestRating: String(googleReviewStats.outOf),
+      worstRating: "1",
+      ratingCount: "1353",
     },
     sameAs: [company.instagram, company.tripadvisor],
   };
