@@ -6,12 +6,14 @@ import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/ui/TextReveal";
 import { company } from "@/lib/site-data";
 import { useIsDesktop } from "@/lib/use-is-desktop";
+import { useViewportSafe } from "@/lib/use-viewport-safe";
 
 export default function RamenAusSapporo() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const isDesktop = useIsDesktop();
   const y = useTransform(scrollYProgress, [0, 1], isDesktop ? ["-6%", "6%"] : ["0%", "0%"]);
+  const imgReveal = useViewportSafe<HTMLImageElement>();
 
   return (
     <section id="story" ref={ref} className="relative overflow-hidden bg-paper-50 py-24 sm:py-32 lg:py-40">
@@ -61,9 +63,11 @@ export default function RamenAusSapporo() {
         <div className="relative lg:col-span-4 lg:col-start-9">
           <Reveal delay={0.15} className="relative aspect-[3/4] w-full overflow-hidden rounded-sm">
             <motion.img
+              ref={imgReveal.ref}
               style={{ y }}
               initial={{ scale: 1.08 }}
-              whileInView={{ scale: 1 }}
+              animate={{ scale: imgReveal.entered ? 1 : 1.08 }}
+              onViewportEnter={imgReveal.markEntered}
               viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
               transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
               src="/images/food/shoyu-bokchoy-branded.jpg"

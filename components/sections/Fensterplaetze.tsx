@@ -6,12 +6,15 @@ import { useRef } from "react";
 import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/ui/TextReveal";
 import { useIsDesktop } from "@/lib/use-is-desktop";
+import { useViewportSafe } from "@/lib/use-viewport-safe";
 
 export default function Fensterplaetze() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const isDesktop = useIsDesktop();
   const y = useTransform(scrollYProgress, [0, 1], isDesktop ? ["-5%", "5%"] : ["0%", "0%"]);
+  const imgReveal = useViewportSafe<HTMLDivElement>();
+  const detailReveal = useViewportSafe<HTMLDivElement>();
 
   return (
     <section id="fensterplaetze" ref={ref} className="relative overflow-hidden bg-ink-950 py-24 text-paper-50 sm:py-32 lg:py-40">
@@ -38,8 +41,10 @@ export default function Fensterplaetze() {
 
         <div className="relative lg:col-span-7 lg:col-start-6">
           <motion.div
+            ref={imgReveal.ref}
             initial={{ clipPath: "inset(0 0 0 100%)" }}
-            whileInView={{ clipPath: "inset(0 0 0 0%)" }}
+            animate={{ clipPath: imgReveal.entered ? "inset(0 0 0 0%)" : "inset(0 0 0 100%)" }}
+            onViewportEnter={imgReveal.markEntered}
             viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
             transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
             className="relative aspect-[4/3] w-full overflow-hidden rounded-sm"
@@ -47,8 +52,7 @@ export default function Fensterplaetze() {
             <motion.img
               style={{ y }}
               initial={{ scale: 1.1 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+              animate={{ scale: imgReveal.entered ? 1 : 1.1 }}
               transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
               src="/images/interior/fensterplatz-sakura.jpg"
               alt="Fensterplätze bei Takumi Dortmund mit Blick auf den Kirschblütenbaum und die Brückstraße"
@@ -68,8 +72,10 @@ export default function Fensterplaetze() {
           </span>
 
           <motion.div
+            ref={detailReveal.ref}
             initial={{ opacity: 0, y: 24, scale: 0.96 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            animate={detailReveal.entered ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 24, scale: 0.96 }}
+            onViewportEnter={detailReveal.markEntered}
             viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
             transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="absolute -bottom-6 -left-3 aspect-[4/5] w-32 overflow-hidden rounded-sm shadow-2xl shadow-ink-950/60 ring-8 ring-ink-950 lg:-bottom-10 lg:-left-8 lg:w-52"

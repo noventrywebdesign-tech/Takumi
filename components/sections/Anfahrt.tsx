@@ -6,15 +6,19 @@ import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/ui/TextReveal";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { company, hours } from "@/lib/site-data";
+import { useViewportSafe } from "@/lib/use-viewport-safe";
 
 export default function Anfahrt() {
+  const bannerReveal = useViewportSafe<HTMLDivElement>();
   return (
     <section id="anfahrt" className="relative bg-paper-50 py-24 sm:py-32 lg:py-40">
       <Reveal className="mx-auto mb-14 max-w-[92rem] px-6 lg:px-12">
         <div className="relative aspect-[8/1] w-full overflow-hidden rounded-sm sm:aspect-[10/1]">
           <motion.div
+            ref={bannerReveal.ref}
             initial={{ scale: 1.08 }}
-            whileInView={{ scale: 1 }}
+            animate={{ scale: bannerReveal.entered ? 1 : 1.08 }}
+            onViewportEnter={bannerReveal.markEntered}
             viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0"

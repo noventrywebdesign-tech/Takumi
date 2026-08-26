@@ -3,6 +3,7 @@
 import { Fragment } from "react";
 import { motion } from "framer-motion";
 import type { ElementType } from "react";
+import { useViewportSafe } from "@/lib/use-viewport-safe";
 
 type TextRevealProps = {
   text: string;
@@ -23,17 +24,17 @@ type TextRevealProps = {
 export default function TextReveal({ text, as = "span", className, delay = 0, once = true }: TextRevealProps) {
   const words = text.split(" ");
   const Tag = motion.create(as as "span");
+  const { ref, entered, markEntered } = useViewportSafe<HTMLSpanElement>();
 
   return (
-    <Tag className={className}>
+    <Tag ref={ref} className={className} onViewportEnter={markEntered} viewport={{ once, margin: "-10% 0px -10% 0px" }}>
       {words.map((word, i) => (
         <Fragment key={i}>
           <span className="inline-block overflow-hidden align-top pt-[0.12em] pb-[0.12em]">
             <motion.span
               className="inline-block"
               initial={{ y: "110%" }}
-              whileInView={{ y: "0%" }}
-              viewport={{ once, margin: "-10% 0px -10% 0px" }}
+              animate={{ y: entered ? "0%" : "110%" }}
               transition={{ duration: 0.85, delay: delay + i * 0.055, ease: [0.16, 1, 0.3, 1] }}
             >
               {word}
