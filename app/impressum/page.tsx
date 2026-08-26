@@ -16,7 +16,9 @@ export default function Impressum() {
         <section>
           <h2 className="eyebrow mb-4 text-ink-400">Angaben gemäß § 5 DDG</h2>
           <address className="not-italic">
-            <em className="text-ink-400">[{company.legal.entityNamePlaceholder}]</em>
+            {company.legal.entityName}
+            <br />
+            handelnd unter {company.legal.tradingAs}
             <br />
             {company.address.street}
             <br />
@@ -24,13 +26,6 @@ export default function Impressum() {
             <br />
             Deutschland
           </address>
-        </section>
-
-        <section>
-          <h2 className="eyebrow mb-4 text-ink-400">Vertreten durch</h2>
-          <p>
-            <em className="text-ink-400">[{company.legal.representativePlaceholder}]</em>
-          </p>
         </section>
 
         <section>
@@ -51,15 +46,6 @@ export default function Impressum() {
             Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:
             <br />
             <em className="text-ink-400">[{company.legal.ustIdPlaceholder}]</em>
-          </p>
-        </section>
-
-        <section>
-          <h2 className="eyebrow mb-4 text-ink-400">Registerangaben</h2>
-          <p>
-            Registergericht: <em className="text-ink-400">[{company.legal.registerCourtPlaceholder}]</em>
-            <br />
-            Registernummer: <em className="text-ink-400">[{company.legal.registerNumberPlaceholder}]</em>
           </p>
         </section>
       </div>

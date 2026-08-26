@@ -21,14 +21,13 @@ export const company = {
     // Wird von der Datenschutz-Seite mitverwendet — Wert nicht ändern, ohne app/datenschutz mitzupflegen.
     entityPlaceholder: "wird nachgereicht",
 
-    // Impressum-spezifische Platzhalter (§5 DDG). Bewusst als beschreibende Platzhalter belassen —
-    // keine dieser Angaben recherchieren, vermuten oder erfinden. Werden vom Betreiber nachgereicht.
-    entityNamePlaceholder: "VOLLSTÄNDIGER RECHTLICHER UNTERNEHMENSNAME",
-    representativePlaceholder: "VOR- UND NACHNAME DER VERTRETUNGSBERECHTIGTEN PERSON",
-    emailPlaceholder: "E-MAIL-ADRESSE",
-    ustIdPlaceholder: "UST-IDNR.",
-    registerCourtPlaceholder: "REGISTERGERICHT",
-    registerNumberPlaceholder: "REGISTERNUMMER",
+    // Impressum §5 DDG — vom Betreiber bestätigt: Einzelunternehmer, kein Registereintrag.
+    entityName: "Mingze Li",
+    tradingAs: "Takumi Dortmund",
+
+    // Noch offen, vom Betreiber nachgereicht — bewusst als Platzhalter belassen, nichts erfinden.
+    emailPlaceholder: "wird nachgereicht",
+    ustIdPlaceholder: "wird nachgereicht",
   },
   mapsEmbedSrc: "https://www.google.com/maps?q=Br%C3%BCckstra%C3%9Fe+32,+44135+Dortmund&output=embed",
   // Query includes the business name, not just the address — an address-only query resolves to a
