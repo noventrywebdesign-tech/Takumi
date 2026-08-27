@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import NoventrySignature from "@/components/ui/NoventrySignature";
 import { company, googleReviewStats } from "@/lib/site-data";
 
 const shoulders = Archivo_Black({
@@ -99,6 +100,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className={`${shoulders.variable} ${hanken.variable} ${yuji.variable} font-body bg-paper-50 text-ink-900 antialiased`}>
         <SmoothScrollProvider>
+          {/*
+            NoventrySignature is mounted first and deliberately kept early in DOM order even
+            though it renders fixed at the bottom-right: Chromium computes keyboard-focus
+            "scroll into view" for a position:fixed element from its normal-flow DOM position,
+            not its rendered position — placed after Footer (end of a ~14000px document) that
+            caused a real, reproducible jump to scrollY ~12000px on focus. Kept near the top,
+            the same behavior is harmless (target position ~0, already there).
+          */}
+          <NoventrySignature />
           <Navbar />
           {children}
           <Footer />
